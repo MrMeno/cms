@@ -1,0 +1,50 @@
+<div class="container-fluid" style='background-color: white;font-size: 14px;height:600px'>
+    <div class='row' style='border-bottom:solid 1px #eee;padding: 30px'>
+        <div class="col col-md-3 text-center">
+            当前账号
+        </div>
+        <div class="col col-md-9 text-left">
+            <span ng-bind="user_data.telephone"></span>
+        </div>
+    </div>
+    <div class='row' style='border-bottom:solid 1px #eee;padding: 30px'>
+        <div class="col col-md-1">
+            <img ng-if="user_data.level=='弱'" src="../../img/dangers.svg" alt="">
+            <img ng-if="user_data.level!='弱'" src="../../img/yess.svg" alt="">
+        </div>
+        <div class="col col-md-2 text-left">
+            登录密码
+        </div>
+        <div class="col col-md-7 text-left">
+            <p style='color:#999'>建议您定期更换密码,设置高安全的密码可以使账号更安全</p>
+        </div>
+        <div class="col col-md-2 text-right">
+            <a style='cursor: pointer' ui-sref='main.password'>修改</a>
+        </div>
+    </div>
+   <!--  <div class='row' style='border-bottom:solid 1px #eee;padding: 30px'>
+        <div class="col col-md-1"><img ng-if='user_data.telephone!=null' src="../../img/yess.svg" alt=""></div>
+        <div class="col col-md-2 text-left">
+            绑定手机
+        </div>
+        <div class="col col-md-7 text-left">
+            <p style='color:#999' ng-bind='user_data.telephone'></p>
+        </div>
+        <div class="col col-md-2 text-right">
+        </div>
+    </div> -->
+    <div class='row' style='border-bottom:solid 1px #eee;padding: 30px'>
+        <div class="col col-md-1">
+        	<img ng-if="user_data.emailStatus==0" src="../../img/dangers.svg" alt="">
+            <img ng-if="user_data.emailStatus==1" src="../../img/yess.svg" alt=""> 	
+        </div>
+        <div class="col col-md-2 text-left">
+            绑定邮箱
+        </div>
+        <div class="col col-md-7 text-left">
+            <p style='color:#999'>绑定邮箱后,您可以享受更多的影视剧植入方面的信息</p>
+        </div>
+        <div class="col col-md-2 text-right">
+            <a style='cursor: pointer' ng-click="setUserMail()">立即设置</a>
+        </div>
+    </div>

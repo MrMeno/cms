@@ -1,0 +1,72 @@
+
+<div class="row">
+    <div class="col col-md-1">
+    </div>
+    <div class="col col-md-9">
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                昵称：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="text" class="form-control" name="nickName" ng-model="user_data.nickName">
+            </div>
+        </div>
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                账号：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="text" class="form-control" disabled='true' name="username" ng-model="user_data.userName">
+            </div>
+        </div>
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                性别：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="radio" name="sex" value="0" ng-model="user_data.sex"> 女
+                <input type="radio" name="sex" value="1" ng-model="user_data.sex"> 男
+                <input type="radio" name="sex" value="2" ng-model="user_data.sex"> 未知
+            </div>
+        </div>
+  <!--       <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                手机号码：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="text" class="form-control" name="telephone" ng-model="user_data.telephone">
+            </div>
+        </div> -->
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                邮箱：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="text" class="form-control" name="email" ng-model="user_data.email" ng-disabled="true">
+            </div>
+        </div>
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                公司地址：
+            </div>
+            <div class="col col-md-8 text-left">
+                <input type="text" class="form-control" name="addr" ng-model="user_data.addr">
+            </div>
+        </div>
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-4 text-center">
+                详细地址：
+            </div>
+            <div class="col col-md-8 text-left">
+                <textarea class='form-control'  rows="3" name="remark" ng-model="user_data.remark"></textarea>
+            </div>
+        </div>
+        <div class="row" style='padding: 10px'>
+            <div class="col col-md-12 text-center">
+               <input type="button" class='btn btn-primary ' ng-click='saveUser()' style='background-color: #4b8ccb;width:30%;height:30px ' value='保存 '>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-2">
+    </div>
+</div>

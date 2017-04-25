@@ -1,0 +1,122 @@
+<div class="container" style='background-color: #eee;height:700px' ng-controller='registController'>
+    <div class="row" style='padding:50px' ng-show="getCookie('access_token')==null">
+        <div class="col col-md-4"></div>
+        <div class="col col-md-4">
+            <div class="row">
+                <div class="col col-md-6 text-left">
+                    <label>注册账号</label>
+                </div>
+                <div class="col col-md-6 text-right">
+                    已有账号，请<a style='cursor:pointer' data-toggle="modal" data-target=".bs-example-modal-md">登录</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <form>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <div class="form-group" style='border-radius: 5px 5px 5px 5px'>
+                                    <div class="input-group" style='width:100%'>
+                                        <input type="text" class="form-control" ng-change="validate('phone')" ng-model='reg_data.userName' style='border-bottom:solid 1px white;height:45px' placeholder="请输入您的手机号" aria-describedby="basic-addon1">
+                                        <span class="input-group-addon" style='cursor:pointer;background-color: #f9fbfb'><button ng-class="paraclass" ng-bind="paracont" ng-click='captcha()'></button></span>
+                                    </div>
+                                    <input type="text" class="form-control" ng-model='reg_data.verification' style='border-bottom:solid 0px white;height:45px' placeholder="请输短信验证码">
+                                    <input type="text" class="form-control" ng-model='reg_data.nickName' style='border-bottom:solid 0px white;height:45px' placeholder="昵称" ng-change="validate('nick')">
+                                    <input type="email" class="form-control" ng-model='reg_data.email' style='border-bottom:solid 0px white;height:45px' placeholder="请输入您的邮箱" ng-change="validate('email')">
+                                    <input type="password" class="form-control" ng-model='reg_data.password' style='border-bottom:solid 0px white;height:45px' placeholder="请输入您的密码" ng-change="validate('password')">
+                                    <input type="password" class="form-control" ng-model='reg_data.repeatPasswd' style='border-radius: 0px 0px 5px 5px;height:45px' placeholder="请确认密码" ng-change="validate('repeatPasswd')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style='padding: 10px'>
+                            <div class="col col-md-12">
+                                <input type="checkbox" ng-click="check()">我已阅读并接受<a style='cursor:pointer ' ui-sref='main.sign'>《媒大媒小服务条款》</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <input type="button" class='btn btn-primary ' ng-click='regist()' id='register' style='background-color: #4b8ccb;width:100%;height:50px ' value='立即注册 '>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-4">
+            <div class="row">
+                <div class="col col-md-6 text-left">
+                    <label>&nbsp;</label>
+                </div>
+                <div class="col col-md-6">
+                    &nbsp;<a style='cursor:pointer' data-toggle="modal" data-target=".bs-example-modal-md">&nbsp;</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <form>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <div class="form-inline" style='border-radius: 5px 5px 5px 5px'>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.phone[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.phone[0].show2' alt="">
+                                        <span ng-bind='message_list.phone[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.captcha[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.captcha[0].show2' alt="">
+                                        <span ng-bind='message_list.captcha[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.nick[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.nick[0].show2' alt="">
+                                        <span ng-bind='message_list.nick[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.email[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.email[0].show2' alt="">
+                                        <span ng-bind='message_list.email[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height:40px;padding-left: 10px' ng-if='reg_data.password.length>=6' id='level'>
+                                            <span ng-if='passwordLevel(reg_data.password)==0||passwordLevel(reg_data.password)==1' style='color:#eb1726'>弱</span>
+                                            <span ng-if='passwordLevel(reg_data.password)==2||passwordLevel(reg_data.password)==3' style='color:#dacd38'>中</span>
+                                            <span ng-if='passwordLevel(reg_data.password)==4' style='color:#0fd830'>强</span>
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px' ng-if='reg_data.password.length<6'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.password[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.password[0].show2' alt="">
+                                        <span ng-bind='message_list.password[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                    <div class='form-group' style='width:100%;height:45px;line-height: 40px'>
+                                        <img src="../../img/wrong.svg" ng-show='message_list.reppsw[0].show1' alt="">
+                                        <img src="../../img/yes.svg" ng-show='message_list.reppsw[0].show2' alt="">
+                                        <span ng-bind='message_list.reppsw[0].msg' class='msg'></span>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style='padding: 10px'>
+                            <div class="col col-md-12">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-12">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style='padding-top: 100px' ng-show="getCookie('access_token')!=null">
+        <div class="col col-md-4">
+        </div>
+        <div class="col col-md-4 text-center" style='background-color: #fff;height:200px;line-height: 100px;font-size: 20px'>
+            您已成功注册媒大媒小系统!
+            <p>
+                <a ng-bind='jump_num'></a>秒后将跳转至<a ui-sref='main'>首页</a></p>
+        </div>
+        <div class="col col-md-4">
+        </div>
+    </div>
+</div>

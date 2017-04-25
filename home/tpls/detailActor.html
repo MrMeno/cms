@@ -1,0 +1,142 @@
+<style type="text/css" media="screen">
+    .list-tab {
+        list-style: none;
+        padding: 5px;
+    }
+    
+    .label-1 {
+        display: block;
+        padding: 1px;
+        background-color: #f5f5f5;
+        color: #3577a7;
+        font-size: 10px
+    }
+    
+    .label-2 {
+        display: block;
+        padding: 1px;
+        background-color: #fee3c6;
+        color: #fdae69;
+        font-size: 10px;
+        text-align: center
+    }
+</style>
+<div class="container" style="border:solid 1px #eee;background-color: #eee" ng-controller="detailStaffController">
+    <!-- top -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px">
+        <div class="col col-md-3  text-center">
+            <div style="box-shadow: 0px 10px 15px #888888;border:solid 1px #eee">
+                <img ng-src="{{actor_data.picUrl}}" style="width: 80%;padding:10px 0px 10px 0px">
+                <!-- detail_pic_url -->
+            </div>
+        </div>
+        <div class="col col-md-9  text-left">
+            <div class="row">
+                <div class="col col-md-6" id="list">
+                    <div class="row">
+                        <div class="col col-md-12"><span ng-bind="actor_data.nameZh" style="font-size: 23px;font-weight: 500"> </span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3 text-left"><span class="title">中文名</span></div>
+                        <div class="col col-md-9">
+                            <a ng-bind="actor_data.nameZh" ng-href="{{actor_data.link}}"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">出生地</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.birthPlace"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">出生日期</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.birthday"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">国籍</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.nationality"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">民族</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.nation"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">职业</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.profession"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">毕业院校</span></div>
+                        <div class="col col-md-9"><span ng-bind="actor_data.graduatedSchool"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">代表作品</span></div>
+                        <div class="col col-md-9"><span ng-repeat="s in actor_data.artWorksList">
+                            <a ng-click='toDetailDrama(s.dramaId)' ng-bind='s.name' style='cursor:pointer'></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mid -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md' style="background-color: black">1</span>
+                    <strong style='padding-left:10px;font-size:15px'>基本信息</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12 text-left">
+                    <article compile="actor_data.introduction" style='padding: 10px;line-height: 30px'>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  bottom -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md' style="background-color: black">2</span><strong style='padding-left:10px;font-size:15px'>代表作品</strong>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col col-md-12 text-center" style='padding:20px'>
+                    <div style="width:100%; height:auto;">
+                        <ul id="marquee1">
+                            <li ng-repeat='s in actor_data.artWorksList' on-finish-render-filters>
+                                <img ng-src="{{s.dramaImage}}" style='height:100px;border:solid 4px #eee'>
+                                <p ng-bind='s.name'></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md' style="background-color: black">3</span><strong style='padding-left:10px;font-size:15px'>获奖记录</strong>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col col-md-12 text-left">
+                    <article compile="actor_data.winningRecord" style='padding: 10px;line-height: 30px'>
+
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

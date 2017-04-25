@@ -1,0 +1,240 @@
+<div class="container" style="border:solid 1px #eee;background-color: #eee" ng-controller="detailDramaController">
+    <!-- top -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px;line-height:20px;min-height: 500px">
+        <div class="col col-md-3  text-center">
+            <div class="row">
+                <div class="col col-md-12">
+                    <div style="box-shadow: 0px 10px 15px #888888;border:solid 1px #eee">
+                        <img ng-src="{{detail_data.detail_pic_url}}" style="width: 212px;height:300px;padding:20px 0px 20px 0px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6 text-left" style='padding-left:50px '>
+            <div class="row">
+                <div class="col col-md-8" id="list">
+                    <div class="row">
+                        <div class="col col-md-12">
+                            <span ng-bind="detail_data.name" style="font-size: 20px;font-weight: 600"> </span>
+                        </div>
+                    </div>
+                    <div class="row" style='padding-top: 20px'>
+                        <div class="col col-md-3 text-left"><span class="title">导演</span></div>
+                        <div class="col col-md-9">
+                            <span ng-if="detail_data.director_list.length>0" ng-repeat="s in detail_data.director_list">                       
+                            <a ng-bind='s.staff_name' ng-if="s.link!=''" ng-href="{{s.link}}" target='_blank' style="cursor:pointer"></a>&nbsp;
+                            <span ng-bind='s.staff_name' ng-if="s.link==''"></span>&nbsp;
+                            </span>
+                            <span ng-if="detail_data.director_list.length==0">暂未拟定&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">编剧</span></div>
+                        <div class="col col-md-9"><span ng-repeat="s in detail_data.screenwriter_list">
+                            <a ng-href='{{s.link}}' ng-bind='s.staff_name' target='_blank' style="cursor:pointer"></a>&nbsp;
+                            </span>
+                            <span ng-if="detail_data.screenwriter_list.length==0">暂未拟定&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">主演</span></div>
+                        <div class="col col-md-9"><span ng-repeat="s in detail_data.actor_list">
+                            <a ng-href='{{s.link}}' target='_blank' ng-bind='s.staff_name' style="cursor:pointer"></a>&nbsp;
+                            </span>
+                            <span ng-if="detail_data.actor_list.length==0">暂未拟定&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">出品公司</span></div>
+                        <div class="col col-md-9">
+                            <span ng-repeat="s in detail_data.companyList">
+                            <a ng-bind='s.companyName' ng-click="toDetailCop(s.companyId)" style="cursor:pointer"></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">类型</span></div>
+                        <div class="col col-md-9"><span ng-repeat="s in detail_data.drama_type_list">
+                            <span ng-bind='s.drama_type_name'></span>&nbsp;
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">开机时间</span></div>
+                        <div class="col col-md-9"><span ng-bind="detail_data.begin_shoot_date"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">上映时间</span></div>
+                        <div class="col col-md-9"><span ng-bind="detail_data.release_date"></span></div>
+                    </div>
+                    <div class="row" style='padding-top: 20px' ng-if="detail_data.attractInvestment">
+                        <div class="col col-md-12 text-left">
+                            <a class="btn-group" role="group" aria-label="..." ng-href="{{hostName+id}}">
+                                <button type="button" class="btn" style='background-color: #2581d8;color:white;'><span class="glyphicon glyphicon-arrow-down"></span></button>
+                                <button type="button" class="btn" style='background-color: #5098e0;color:white;'>招商方案
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-3 text-center">
+            <div class="row">
+                <div class="time_counter_1" style='text-align: center'>
+                    <p compile="'距离结束：'+timeCouter(detail_data.deadline)">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mid -->
+    <div class="row" style="background-color: white;margin-bottom: 20px">
+        <div class="col col-md-12  text-center">
+            <div class="row" style="padding-left: 20px;padding-top: 20px">
+                <div class="col col-md-12  text-left">
+                    <strong style="border-bottom:solid 2px black">植入品类</strong>
+                </div>
+            </div>
+            <div class="row" style='padding-top: 20px;padding-left: 20px;'>
+                <div class="col col-md-1" ng-repeat="s in detail_data.adver_type_list" style="padding-bottom: 20px">
+                    <span class="label-1" ng-bind="s.adver_type_name"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px" ng-show="detail_data.plot!=''">
+        <div class="col col-md-12">
+            <div class="row" style='padding-left: 20px'>
+                <div class="col col-md-12">
+                    <strong style="border-bottom:solid 2px black">项目优势</strong>
+                </div>
+            </div>
+            <div class="row" style='padding: 20px'>
+                <div class="col col-md-12 text-left">
+                    <p compile='detail_data.plot' style='line-height: 30px'></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color: #eee;margin-bottom: 20px;">
+        <div class="col col-md-12  text-center" style="background-color: white;">
+            <div class="row" style="padding:20px">
+                <div class="col col-md-12  text-left">
+                    <strong style="border-bottom:solid 2px black">故事梗概</strong>
+                </div>
+            </div>
+            <div class="row text-left">
+                <div class="col col-md-12">
+                    <article style="padding: 5px 0px 5px 20px;line-height:30px" compile="detail_data.synopsis">
+                    </article>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 20px;padding-top: 20px" ng-hide="detail_data.pic_list.length==0">
+                <div class="col col-md-12  text-left">
+                    <strong style="border-bottom:solid 2px black">剧照</strong>
+                </div>
+            </div>
+            <div class="row text-left" style='padding-top: 20px' ng-hide="detail_data.pic_list.length==0">
+                <div class="col col-md-4" ng-repeat="s in detail_data.pic_list">
+                    <div style='padding: 10px'>
+                        <img ng-src="{{s}}" alt="" class="pic_list_1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color:white; margin-bottom:20px;">
+        <div class="col col-md-12">
+            <div class="row" style="padding-left: 20px;padding-top: 20px">
+                <div class="col col-md-12  text-left">
+                    <strong style="border-bottom:solid 2px black">联系我们</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <div style='padding: 20px;text-align: center'>
+                        <img src="../img/map.png" style='width: 90%;height:auto'>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 20px;padding-top: 20px;line-height: 30px">
+                <div class="col col-md-1">
+                </div>
+                <div class="col col-md-4">
+                    <div class="row">
+                        <div class="col col-md-1 text-right">
+                            <img src="../img/telephone.svg" alt="">
+                        </div>
+                        <div class="col col-md-11">
+                            电话：400-825-7355
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-1">
+                            <img src="../img/fax.svg" alt="">
+                        </div>
+                        <div class="col col-md-11">
+                            传真：021-52342628
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-1">
+                            <img src="../img/mail.svg" alt="">
+                        </div>
+                        <div class="col col-md-11">
+                            邮箱：service@maxmedia.com
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-1">
+                            <img src="../img/position.svg" alt="">
+                        </div>
+                        <div class="col col-md-11">
+                            地址：上海市黄浦区打浦桥路1号金玉兰广场2010室
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-1">
+                            <img src="../img/alarm.svg" alt="">
+                        </div>
+                        <div class="col col-md-11">
+                            工作日：09:00-18:00 其他时间请留言
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-1">
+                </div>
+                <div class="col col-md-5">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-md-6">
+                                <input type="text" placeholder="姓名" ng-model='ad_params.name' class="form-control">
+                            </div>
+                            <div class="col col-md-6">
+                                <input type="text" placeholder="手机" ng-model='ad_params.phone' class="form-control">
+                            </div>
+                        </div>
+                        <div class="row" style='padding-top:20px'>
+                            <div class="col col-md-12">
+                                <input type="text" placeholder="请填写你的品牌名称" ng-model='ad_params.dramaName' class="form-control">
+                            </div>
+                        </div>
+                        <div class="row" style='padding-top:20px'>
+                            <div class="col col-md-12">
+                                <textarea class='form-control' placeholder="请填写你的植入需求" ng-model='ad_params.demand' cols="30" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" style='padding-top:20px'>
+                            <div class="col col-md-12">
+                                <input type="button" value='提交' ng-click="advisory_submit()" class='btn-submit'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="container-fluid" style='background-color: white'>
+
+<div ng-bind="'当前账号:'+user_data.telephone"></div> 
+<div ng-bind="'登录密码:'+user_data.level"></div>建议您定期更换密码,设置高安全的密码可以使账号更安全 <a ui-sref="main.password">修改密码</a>
+<div ng-bind="'绑定手机:'+user_data.telephone"></div>
+<div ng-if="user_data.emailStatus==0">
+	<div ng-bind="'绑定邮箱:'+user_data.email"></div>
+	   <a ng-click="sendEmail()">激活邮箱</a>
+	</div>
+</div>
+<div ng-if="user_data.emailStatus==1">
+	<div ng-bind="'绑定邮箱:'+user_data.email"></div>
+	   <a ng-click="setUserMail()">修改邮箱</a>
+	</div>
+</div>
+

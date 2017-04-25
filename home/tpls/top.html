@@ -1,0 +1,93 @@
+<div class="row" ng-contoller='topController'>
+    <div class="col col-md-3 text-center">
+        <a ui-sref="main">
+            <img src="../img/logo.png" alt="返回主页" style="padding-top: 20px">
+        </a>
+    </div>
+    <div class="col col-md-4">
+        <div class="row text-center" style="padding-top: 40px;color:white;" id='font_hide'>
+            <div class="col col-md-2">
+                <span ui-sref='main' style='cursor:pointer'>首页</span>
+            </div>
+            <div class="col col-md-2">
+                <sapn style='cursor:pointer' ui-sref='main.customer'> 我们的客户</sapn>
+            </div>
+          
+            <div class="col col-md-2">
+                <span><a ui-sref="main.about" style="text-decoration:none;color:white">关于我们</a></span>
+            </div>
+            <div class="col col-md-2">
+                <sapn style='cursor:pointer' ui-sref="main.about.join"> 加入我们</sapn>
+            </div>
+            <div class="col col-md-2">
+
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-5">
+        <div class="row  text-center" style="padding-top: 40px;color:white;">
+            <div class="col col-md-12" ng-show="access_token==null||access_token==''||access_token==undefined">
+                <span data-toggle="modal" data-target=".bs-example-modal-md" style=' cursor:pointer '>登录</span> <span>|</span><span ui-sref='main.regist ' style='cursor:pointer '>注册</span>
+            </div>
+
+
+             <div class="col col-md-12" ng-show="access_token!=null&&access_token!=''&&access_token!=undefined">
+                <span  style=' cursor:pointer;color:white'
+                 ng-click="toUserCenter()" compile='userName'></span> |<span style='cursor:pointer' ng-click='logout()'>退出</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-md" tabindex="-1" ng-enter='loadSys()' role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style='height:450px; '>
+                <div class="modal-header" style='border:solid 0px white '>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                </div>
+                <div class="modal-body" style='padding-top:50px '>
+                    <div class="row">
+                        <div class="col col-md-1"></div>
+                        <div class="col col-md-5 text-left">
+                            <strong class="modal-title" id="myModalLabel" style='font-size:15px '>登录</strong>
+                        </div>
+                        <div class="col col-md-5 text-right">
+                            <a ui-sref='main.regist ' data-dismiss="modal" style='color:#999;font-size:13px '>立即注册</a>
+                        </div>
+                        <div class="col col-md-1"></div>
+                    </div>
+                    <div class="row" style="padding-top: 30px">
+                        <div class="col col-md-1"></div>
+                        <div class="col col-md-10">
+
+                            <input type="text" name='name ' id='userName ' class="form-control text-left" placeholder="用户名" ng-model='load_params.userName' style='height:50px '>
+                        </div>
+                        <div class="col col-md-1 "></div>
+                    </div>
+
+                    <div class="row" style="padding: 20px 0px 20px 0px">
+                        <div class="col col-md-1"></div>
+                        <div class="col col-md-10">
+                            <input type="password" name='name ' id='passWord ' class="form-control text-left" placeholder="密码" ng-model='load_params.password ' style='height:50px '>
+                        </div>
+                        <div class="col col-md-1 "></div>
+                    </div>
+                    <div class="row " style="padding:20px 0px 20px 0px">
+                        <div class="col col-md-1"></div>
+                        <div class="col col-md-5 text-left"><input type="checkbox">记住登录状态 </div>
+                        <div class="col col-md-5 text-right">
+                            <a style='cursor:pointer ' ui-sref='main.password ' data-dismiss="modal">忘记密码</a>
+                        </div>
+                        <div class="col col-md-1"></div>
+                    </div>
+                    <div class="row " style="padding:20px 0px 20px 0px">
+                        <div class="col col-md-1 "> </div>
+                        <div class="col col-md-10 text-center">
+                            <button type="button" class="form-control btn btn-danger" ng-click='loadSys()' style='height:40px' data-dismiss="modal">登录</button>
+                        </div>
+                        <div class="col col-md-1 "></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

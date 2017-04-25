@@ -1,0 +1,204 @@
+<div class="container" style="border:solid 1px #eee;background-color: #eee" ng-controller="detailCopController">
+    <!-- top -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding-top: 20px">
+        <div class="col col-md-3  text-center">
+            <div style="box-shadow: 0px 10px 15px #888888;border:solid 1px #eee">
+                <img ng-src="{{cop_data.companyPic}}" style="width: 212px;height:300px;padding:20px 0px 20px 0px">
+                <!-- detail_pic_url -->
+            </div>
+        </div>
+        <div class="col col-md-9  text-left" style='padding-left:50px '>
+            <div class="row">
+                <div class="col col-md-6" id="list">
+                    <div class="row">
+                        <div class="col col-md-12"><span ng-bind="cop_data.name" style="font-size: 23px;font-weight: 500"> </span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3 text-left"><span class="title">创始人</span></div>
+                        <div class="col col-md-9">
+                            <sapn ng-bind="cop_data.founder">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">法定代表人</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.representative"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">总部地点</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.headquartersAddress"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">成立时间</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.established"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">注册资本</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.registeredCapital"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">组织结构代码</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.organizationCode"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">公司类型</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.companyType"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">经营范围</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.businessScope"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">公司旗下艺人</span></div>
+                        <div class="col col-md-9">
+						<span ng-repeat="s in cop_data.artistList|limitTo:10">
+                            <span ng-bind='s.staffName'></span>
+                        </span>
+						<span ng-if="cop_data.artistList.length==0">暂无</span>
+						</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><span class="title">企业地址</span></div>
+                        <div class="col col-md-9"><span ng-bind="cop_data.address"></span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- mid -->
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px 0px 0px 20px">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md' style="background-color: black">1</span><strong style='padding-left:10px;font-size:15px'>基本信息</strong>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col col-md-12 text-left">
+                    <article compile="cop_data.basicInformation" style='padding: 10px;line-height: 30px'>
+
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px 0px 0px 20px">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md' style="background-color: black">2</span><strong style='padding-left:10px;font-size:15px'>投资作品</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12 text-center" style='padding:20px'>
+                    <div style="width:100%; height:auto;">
+                        <ul id="marquee">
+                            <li ng-repeat='s in cop_data.dramaList' on-finish-render-filters>
+                                <img ng-src="{{s.dramaImage}}" style='height:100px;border:solid 4px #eee'>
+                                <p style='font-size: 12px' ng-bind='s.name'></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px 0px 0px 20px" ng-hide="cop_data.aerialEffects.length==0">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class=' label label-default label-md ' style="background-color: black">3</span><strong style='padding-left:10px;font-size:15px '>航拍特技</strong>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col col-md-12 text-left">
+                    <article compile="cop_data.aerialEffects" style='padding: 10px;line-height: 30px '>
+
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px 0px 0px 20px" ng-hide="cop_data.postProduction.length==0">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md ' style="background-color: black">4</span><strong style='padding-left:10px;font-size:15px '>后期制作</strong>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col col-md-12 text-left">
+                    <article compile="cop_data.postProduction" style='padding: 10px;line-height: 30px '>
+                        <!--<ul class="vmcarousel-centered vmc-centered">
+                            <li ng-repeat='s in cop_data.dramaList|limitTo:10 '><img ng-src="{{s.dramaImage}}" alt="" width="100" height='150 '>
+                                <p ng-bind='s.name '></p>
+                            </li>
+                        </ul>-->
+                        <div class="vmcarousel-centered vmc-centered">
+
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color: white;margin-bottom: 20px;padding: 20px 0px 20px 20px" ng-hide="cop_data.founderProfile.length==0">
+        <div class="col col-md-12">
+            <div class="row">
+                <div class="col col-md-12">
+                    <span class='label label-default label-md ' style="background-color: black">5</span><strong style='padding-left:10px;font-size:15px '>创始人简介</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12 text-left">
+                    <img ng-src="{{cop_data.companyFounderPic}}" ng-if="cop_data.companyFounderPic!=''" style="float:right;height:240px;width:180px;border:solid 1px #eee;padding: 20px">
+                    <article compile="cop_data.founderProfile" style='padding: 10px;line-height: 30px '>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css" media="screen">
+    .list-tab {
+        list-style: none;
+        padding: 5px;
+    }
+    
+    .label-1 {
+        display: block;
+        padding: 1px;
+        background-color: #f5f5f5;
+        color: #3577a7;
+        font-size: 10px
+    }
+    
+    .label-2 {
+        display: block;
+        padding: 1px;
+        background-color: #fee3c6;
+        color: #fdae69;
+        font-size: 10px;
+        text-align: center
+    }
+    
+    .wrappers {
+        text-align: center;
+        margin-right: 10%
+    }
+</style>

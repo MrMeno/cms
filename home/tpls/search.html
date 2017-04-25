@@ -1,0 +1,174 @@
+<div class="container" id='searchContent' style='padding-top:20px;background-color: #eee;padding: 20px' ng-controller='searchController'>
+    <div class="row" style='color:black;height:50px'>
+        <div class="col col-md-12 text-left" style='padding: 0px'>
+            <ul class='list_chose'>
+                <li style='padding: 5px 16px 0px 0px'>
+                    <span>
+         <a ui-sref='main'>首页</a>   
+                     </span>>
+                    <span>
+                   条件筛选
+                     </span>
+                </li>
+                <li ng-if="chose_data.type!=''">
+                    <div class="text-box" onclick="changeStyle('type')">
+                        <div class="text" compile="'类型：'+chose_data.type">
+                        </div>
+                        <div class="closet" ng-click='delChose(0)'>x</div>
+                    </div>
+                </li>
+                <li ng-if="chose_data.actorsName!=''">
+                    <div class="text-box" onclick="changeStyle('actor')">
+                        <div class="text" compile="'演员：'+chose_data.actorsName">
+                        </div>
+                        <div class="closet" ng-click='delChose(1)'>x</div>
+                    </div>
+                </li>
+                <li ng-if="chose_data.directorsName!=''">
+                    <div class="text-box" onclick="changeStyle('director')">
+                        <div class="text" compile="'导演：'+chose_data.directorsName">
+                        </div>
+                        <div class="closet" ng-click='delChose(2)'>x</div>
+                    </div>
+                </li>
+                <li ng-if="chose_data.screenwritersName!=''">
+                    <div class="text-box" onclick="changeStyle('writer')">
+                        <div class="text font_hide" compile="'编剧：'+chose_data.screenwritersName">
+                        </div>
+                        <div class="closet" ng-click='delChose(3)'>x</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" style='background-color: white;padding: 20px'>
+        <div class="col col-md-12">
+            <div class="row" style='border-bottom: 1px solid #ececec;padding: 0px'>
+                <div class="col col-md-1" style='text-align: left;padding:25px'>
+                    <strong>类型</strong>
+                </div>
+                <div class="col col-md-7" style='padding: 0px'>
+                    <ul class='basic_list' id='type' style='float:left;padding: 15px;font-size: 14px'>
+                        <li style='cursor:pointer;padding:10px 15px;color:#4b8ccb'>
+                            <span ng-click="noFlict('actor')">全部</span>
+                        </li>
+                        <li ng-repeat="s in type_list" style='padding:10px 15px'>
+                            <span compile='s.name' style='cursor:pointer' ng-click="addChose(s.name,'type')" on-finish-render-filters></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col col-md-4" style='padding:15px'>
+                    <input type="text" class="form-control" ng-enter="enter_search()" ng-model='search_params.search' placeholder="关键字查找" style='width:260px;height:34px;text-align:left;background:url(../img/search.svg) right no-repeat;float: right;border-radius: 17px'>
+                </div>
+            </div>
+            <div class="row" style='border-bottom: 1px solid #ececec;padding: 10px 0px'>
+                <div class="col col-md-1" style='text-align: left;padding: 25px'>
+                    <strong>演员</strong>
+                </div>
+                <div class="col col-md-11" style='padding: 0px'>
+                    <ul class='basic_list' id='actor' style='float:left;padding: 15px;font-size: 14px'>
+                        <li ng-repeat="s in actor_data" style='padding:10px 15px'>
+                            <span compile='s.displayName' style='cursor:pointer;color:#333' ng-click="addChose(s.displayName,'actor')" on-finish-render-filters></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style='border-bottom: 1px solid #ececec;padding: 10px 0px'>
+                <div class="col col-md-1" style='text-align: left;padding: 25px'>
+                    <strong>导演</strong>
+                </div>
+                <div class="col col-md-11" style='padding: 0px'>
+                    <ul class='basic_list' id='director' style='float:left;padding: 15px;font-size: 14px'>
+                        <li ng-repeat="s in director_data" style='padding:10px 15px'>
+                            <span compile='s.displayName' style='cursor:pointer;;color:#333' ng-click="addChose(s.displayName,'director')" on-finish-render-filters></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style='padding: 10px 0px'>
+                <div class="col col-md-1" style='text-align: left;padding: 25px'>
+                    <strong>编剧</strong>
+                </div>
+                <div class="col col-md-11" style='padding: 0px'>
+                    <ul class='basic_list' id='writer' style='float:left;padding: 15px;font-size: 14px'>
+                        <li ng-repeat="s in writer_data" style='padding:10px 15px'>
+                            <span compile='s.displayName' style='cursor:pointer;;color:#333' ng-click="addChose(s.displayName,'writer')" on-finish-render-filters></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row " style='margin-top:30px;background-color: white;min-height: 200px' infinite-scroll='load_list_search()' infinite-scroll-disabled='busy_search' infinite-scroll-distance='0' ng-if='res_data.length!=0'>
+        <div class="col col-md-6 text-center" style="padding-top: 30px;height:500px;cursor:pointer" ng-repeat="s in res_data">
+            <img ng-src="{{s.pic_url}}" class='pic_list_3' ng-click='toDetailDrama(s.id)'>
+            <div class="tabs">
+                <h3><strong>招商咨询</strong></h3>
+                <div class="time_counter">
+                    <p compile="'距离结束：'+timeCouter(s.deadline)">
+                    </p>
+                </div>
+            </div>
+            <div class="row text-left" style='padding-top:15px'>
+                <div class="col col-md-12">
+                    <div class="row">
+                        <div class="col col-md-6 text-left">
+                            <strong style='font-size: 15px;padding-left: 20px;'><span compile="'《'+s.name+'》'"  ng-click='toDetailDrama(s.id)'></span></strong>
+                        </div>
+                        <div class="col col-md-6 text-right">
+                            <strong style='color:#999;text-align:right;line-height: 20px;font-size:12px'>主演：
+                                <span ng-if="s.actor_list.length>0" ng-repeat='t in s.actor_list|limitTo:2' compile="t.staff_name+'&nbsp;'"></span>
+                                <span ng-if="s.actor_list.length==0">暂未拟定</span>
+                                </strong>
+                        </div>
+                    </div>
+                    <div class="row" style='padding-top:15px;font-size: 11px'>
+                        <ul class="basic_list">
+                            <li><strong>优势：<span compile="setString(s.plot,150)"></span></strong></li>
+                        </ul>
+                    </div>
+                    <div class="row" style='color:#999;font-size: 11px'>
+                        <ul class="basic_list">
+                            <li>可植入：</li>
+                            <li ng-repeat="m in s.adver_type_list"><span compile='m.adver_type_name'></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="res_data.length==0" style='margin-top:30px;background-color: white;padding: 50px;'>
+        <div class="col col-md-12 text-center">
+            <p>暂无查询结果</p>
+        </div>
+    </div>
+    <div class="row" ng-if='busy_search' ng-show='res_data.length'>
+        <div class="col col-md-12 text-center">
+            <img src="../img/loading.gif" />
+        </div>
+    </div>
+</div>
+<script>
+function changeStyle(e) {
+    if (e == 'type') {
+        var t = $('#type');
+        var child = t.children().children();
+        child.css('color', '#333');
+    } else if (e == 'actor') {
+        var t = $('#actor');
+        var child = t.children().children();
+        child.css('color', '#333');
+
+    } else if (e == 'director') {
+        var t = $('#director');
+        var child = t.children().children();
+        child.css('color', '#333');
+
+    } else if (e == 'writer') {
+        var t = $('#writer');
+        var child = t.children().children();
+        child.css('color', '#333');
+
+    }
+}
+</script>

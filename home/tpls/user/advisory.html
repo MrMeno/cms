@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col col-md-12">
+        <div class="row text-left">
+            <div class="col col-md-12">
+                <h4  style='padding-left: 10px'><strong>咨询列表</strong></h4>
+            </div>
+        </div>
+        <div class="row" style='padding: 30px;font-weight: 500' ng-if='advisory_list_data.length>0'>
+            <div class="col col-md-12" style='border:dashed 1px #ddd;padding: 10px' ng-repeat="s in advisory_list_data" >
+                <div class="row">
+                    <div class="col col-md-2 text-center">
+                        <input type="checkbox">
+                    </div>
+                    <div class="col col-md-8">
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <label ng-bind="s.demand"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <label ng-show='s.status==1' ng-bind="s.statusName"></label>
+                                <label ng-show='s.status!=1' ng-bind="s.remark"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2 text-center">
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <span ng-bind='s.createDateTime'></span> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <span class='glyphicon glyphicon-trash' style='cursor:pointer' ng-click="delAdvisory(s.id)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if='advisory_list_data.length==0||advisory_list_data==null' style='padding-top: 50px'>
+            <div class="col col-md-12 text-center">
+                暂无咨询数据
+            </div>
+        </div>
+        <div class="row" ng-show='advisory_list_data.length>0'>
+            <div class="col col-md-12 text-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a aria-label="Previous" ng-click="pager('pre')">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li ng-if='showPager(1)'><a ng-click="pager('1')">1</a></li>
+                        <li ng-if='showPager(2)'><a ng-click="pager('2')">2</a></li>
+                        <li ng-if='showPager(3)'><a ng-click="pager('3')">3</a></li>
+                        <li ng-if='showPager(4)'><a ng-click="pager('4')">4</a></li>
+                        <li ng-if='showPager(5)'><a ng-click="pager('5')">5</a></li>
+                        <li>
+                            <a aria-label="Next" ng-click="pager('next')">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li style='line-height: 30px;font-weight: 500;padding-left: 20px'>
+                        当前第<label style='color:#1e80de' ng-bind='page'></label>页
+                        </li>
+                    </ul>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
